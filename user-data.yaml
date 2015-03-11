@@ -3,7 +3,9 @@ coreos:
   etcd:
     addr: $public_ipv4:4001
     peer-addr: $public_ipv4:7001
-    discovery: https://discovery.etcd.io/d26f946eb7dcdc33c1f2058be8c528b6 
+    discovery: https://discovery.etcd.io/TOKEN 
+    # get your TOKEN via 
+    # curl -w "\n" 'https://discovery.etcd.io/new'
   fleet:
     public-ip: $public_ipv4
   units:
