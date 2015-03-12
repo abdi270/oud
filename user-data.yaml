@@ -3,7 +3,17 @@ coreos:
   etcd:
     addr: $public_ipv4:4001
     peer-addr: $public_ipv4:7001
+<<<<<<< HEAD
+<<<<<<< HEAD
+    discovery: https://discovery.etcd.io/41736ed267be4d5526a7d78ebe8b69a7
+=======
+    discovery: https://discovery.etcd.io/TOKEN 
+    # get your TOKEN via 
+    # curl -w "\n" 'https://discovery.etcd.io/new'
+>>>>>>> origin/master
+=======
     discovery: https://discovery.etcd.io/d26f946eb7dcdc33c1f2058be8c528b6 
+>>>>>>> parent of a66fc4c... yaml
   fleet:
     public-ip: $public_ipv4
   units:

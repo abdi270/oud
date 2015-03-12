@@ -20,7 +20,7 @@ fi
 SCRIPT
 
 # Defaults for config options defined in CONFIG
-$num_instances = 3
+$num_instances = 2
 $update_channel = "stable"
 $enable_serial_logging = false
 $vb_gui = false
