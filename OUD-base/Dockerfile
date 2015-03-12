@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM d56e767abb61
+FROM oraclelinux:6.6
 
 # Set correct environment variables.
 ENV HOME /root
@@ -24,7 +24,7 @@ RUN groupadd user
 RUN useradd -g user oracle  -m -d /app
 ##
 #
-RUN mkdir -p /app/fmw /app/sw
+RUN mkdir -p /app/fmw /app/sw /app/oraInventory
 WORKDIR  /app/sw
 ##
 RUN curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u72-b14/jdk-7u72-linux-x64.tar.gz -o jdk-7u72-linux-x64.tar.gz 
@@ -49,6 +49,10 @@ ENV JAVA_HOME /app/jdk1.7.0_72
 ENV PATH $JAVA_HOME/bin:$PATH
 
 WORKDIR   /app/sw/oud/Disk1
+RUN cat /app/oraInst.loc
+RUN echo $JAVA_HOME
+RUN ls -l /app/oraInventory
+RUN touch /app/oraInventory/foo
 RUN ./runInstaller -jreLoc $JAVA_HOME -silent -responseFile /app/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion
 
 #
