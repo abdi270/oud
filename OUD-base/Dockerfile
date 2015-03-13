@@ -61,5 +61,4 @@ RUN ./runInstaller -debug -jreLoc $JAVA_HOME -silent -responseFile /tmp/sw/oud-i
 #
 # Use Oracle's init system.
 USER root
-WORKDIR  /app
 CMD ["/sbin/init"]

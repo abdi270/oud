@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM mybase
+FROM oud-base
 
 # Set correct environment variables.
 USER oracle 
@@ -25,10 +25,8 @@ ENV ROOTUSER cn=dirman
 
 ENV INSTANCE_NAME oud1
 
-
 WORKDIR $ORACLE_HOME
 
 RUN ./oud-setup  --cli  --baseDN "$BASEDN"  --addBaseEntry  --ldapPort $LDAPPORT1  --ldapsPort $LDAPSPORT1  --generateSelfSignedCertificate  --enableStartTLS  --adminConnectorPort $ADMINPORT1  --rootUserDN "$ROOTUSER"  --rootUserPasswordFile $PWF  --hostName $HOST1  --no-prompt  --noPropertiesFile
 
-#CMD ["/app/fmw/oud1/OUD/bin/start-ds --nodetach"]
 ENTRYPOINT  ["/app/fmw/oud1/OUD/bin/start-ds" , "--nodetach"]
