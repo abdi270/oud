@@ -3,7 +3,7 @@
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
 #FROM oracle/oraclelinux
-FROM oraclelinux:6.6   
+FROM oraclelinux:7.0
 
 # Set correct environment variables.
 ENV HOME /root
