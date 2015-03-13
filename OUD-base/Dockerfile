@@ -3,7 +3,7 @@
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
 #FROM oracle/oraclelinux
-FROM oraclelinux:7.0
+FROM oraclelinux:7
 
 # Set correct environment variables.
 ENV HOME /root
@@ -55,8 +55,7 @@ ENV PATH $JAVA_HOME/bin:$PATH
 WORKDIR   /tmp/sw/oud/Disk1
 RUN echo $JAVA_HOME
 #
-RUN ./runInstaller -jreLoc $JAVA_HOME -silent -responseFile /tmp/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion -nocheckForUpdates -novalidation -noconsole 
-#RUN ./runInstaller -debug -jreLoc $JAVA_HOME -silent -responseFile /tmp/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion -nocheckForUpdates -novalidation -noconsole 
+RUN ./runInstaller -debug -jreLoc $JAVA_HOME -silent -responseFile /tmp/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion -nocheckForUpdates -novalidation -noconsole 
 
 #
 #
