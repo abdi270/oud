@@ -2,7 +2,7 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM oraclelinux:6.6
+FROM oracle/oraclelinux
 
 # Set correct environment variables.
 ENV HOME /root
@@ -53,7 +53,8 @@ RUN cat /app/oraInst.loc
 RUN echo $JAVA_HOME
 RUN ls -l /app/oraInventory
 RUN touch /app/oraInventory/foo
-RUN ./runInstaller -jreLoc $JAVA_HOME -silent -responseFile /app/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion
+RUN ./runInstaller -jreLoc $JAVA_HOME -silent -responseFile /app/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion -nocheckForUpdates -novalidation -noconsole 
+#RUN ./runInstaller -debug -jreLoc $JAVA_HOME -silent -responseFile /app/sw/oud-install.rsp -invPtrLoc  /app/oraInst.loc -ignoreSysPrereqs -waitforcompletion -nocheckForUpdates -novalidation -noconsole 
 
 #
 #
