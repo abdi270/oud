@@ -6,11 +6,8 @@ FROM oud-base
 
 # Set correct environment variables.
 USER oracle 
-
-
 ENV ROOT /app/fmw
 ENV PWF /app/.pwd
-RUN echo Oracle123 > $PWF
 ENV ORACLE_HOME $ROOT/OUD
 ENV OUDBIN $ORACLE_HOME/bin
 ### Server1 
@@ -26,7 +23,6 @@ ENV ROOTUSER cn=dirman
 ENV INSTANCE_NAME oud1
 
 WORKDIR $ORACLE_HOME
-
-RUN ./oud-setup  --cli  --baseDN "$BASEDN"  --addBaseEntry  --ldapPort $LDAPPORT1  --ldapsPort $LDAPSPORT1  --generateSelfSignedCertificate  --enableStartTLS  --adminConnectorPort $ADMINPORT1  --rootUserDN "$ROOTUSER"  --rootUserPasswordFile $PWF  --hostName $HOST1  --no-prompt  --noPropertiesFile
+RUN echo Oracle123 > $PWF  ;  ./oud-setup  --cli  --baseDN "$BASEDN"  --addBaseEntry  --ldapPort $LDAPPORT1  --ldapsPort $LDAPSPORT1  --generateSelfSignedCertificate  --enableStartTLS  --adminConnectorPort $ADMINPORT1  --rootUserDN "$ROOTUSER"  --rootUserPasswordFile $PWF  --hostName $HOST1  --no-prompt  --noPropertiesFile
 
 ENTRYPOINT  ["/app/fmw/oud1/OUD/bin/start-ds" , "--nodetach"]

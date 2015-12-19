@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 oud
 =======
 WebLogic 12c on Docker
@@ -82,3 +83,6 @@ To download and run Oracle JDK regardless of inside or outside a DOcker containe
 
 All scripts and files hosted in this project and GitHub [weblogic-docker](https://github.com/weblogic-community/weblogic-docker/) repository required to build the Docker images are, unless otherwise noted, released under the Common Development and Distribution License (CDDL) 1.0 and GNU Public License 2.0 licenses.
 >>>>>>> f993a03c906776fcf94a67701e565bcc87e2239f
+=======
+# testing
+>>>>>>> refs/remotes/origin/oud-base
