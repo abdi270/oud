@@ -19,17 +19,14 @@ ENV HOME /root
 ## 
 RUN yum install tar unzip -y
 #
-RUN groupadd user
-RUN useradd -g user oracle  -m -d /app
+RUN groupadd user && useradd -g user oracle  -m -d /app
 ##
 #
 RUN mkdir -p /app/fmw /tmp/sw /app/oraInventory
 
 WORKDIR  /tmp/sw
 ##
-RUN curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jdk-8u65-linux-x64.tar.gz -o jdk.tgz
-
-RUN tar xfzC jdk.tgz /app
+RUN curl -s -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u65-b17/jdk-8u65-linux-x64.tar.gz -o jdk.tgz && tar xfzC jdk.tgz /app
 ##
 #
 #RUN curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn/nt/middleware/11g/111220/ofm_oud_generic_11.1.2.2.0_disk1_1of1.zip   -o ofm_oud_generic_11.1.2.3.0_disk1_1of1.zip
