@@ -17,12 +17,7 @@ ENV HOME /root
 # Clean up APT when done.
 #
 ## 
-RUN yum install tar unzip -y
-#
-RUN groupadd user && useradd -g user oracle  -m -d /app
-##
-#
-RUN mkdir -p /app/fmw /tmp/sw /app/oraInventory
+RUN yum install tar unzip -y  && RUN groupadd user && useradd -g user oracle  -m -d /app &&  mkdir -p /app/fmw /tmp/sw /app/oraInventory
 
 WORKDIR  /tmp/sw
 ##
