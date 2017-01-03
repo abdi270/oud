@@ -1,0 +1,95 @@
+#cloud-config
+coreos:
+  etcd:
+    addr: $public_ipv4:4001
+    peer-addr: $public_ipv4:7001
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    discovery: https://discovery.etcd.io/41736ed267be4d5526a7d78ebe8b69a7
+=======
+    discovery: https://discovery.etcd.io/TOKEN 
+    # get your TOKEN via 
+    # curl -w "\n" 'https://discovery.etcd.io/new'
+>>>>>>> origin/master
+=======
+    discovery: https://discovery.etcd.io/d26f946eb7dcdc33c1f2058be8c528b6 
+>>>>>>> parent of a66fc4c... yaml
+=======
+    discovery: https://discovery.etcd.io/TOKEN 
+    # get your TOKEN via 
+    # curl -w "\n" 'https://discovery.etcd.io/new'
+>>>>>>> origin/master
+  fleet:
+    public-ip: $public_ipv4
+  units:
+  - name: etcd.service
+    command: start
+  - name: fleet.service
+    command: start
+  - name: docker-tcp.socket
+    command: start
+    enable: true
+    content: |
+      [Unit]
+      Description=Docker Socket for the API
+
+      [Socket]
+      ListenStream=2375
+      Service=docker.service
+      BindIPv6Only=both
+
+      [Install]
+      WantedBy=sockets.target
+#  - name: installConfd.service
+#    command: start
+#    content: |
+#      [Unit]
+#        Description=Install Confd
+#        
+#      [Service]
+#        Type=oneshot
+#        ExecStartPre=/bin/sh -c "sudo mkdir -p /opt/{bin,etc,var,www}"
+#        ExecStart=/bin/sh -c "wget https://github.com/kelseyhightower/confd/releases/download/v0.6.3/confd-0.6.3-linux-amd64" 
+#        ExecStartPost=/bin/sh -c "sudo mv confd-0.6.3-linux-amd64 /opt/bin/confd && sudo chmod 755 /opt/bin/confd"
+#  - name: confd.service
+#    command: start
+#    content: |
+#        [Unit]
+#        Description=Confd service to generate configuration files using etcd distributed params. Will download confd config from Dropbox.
+#        
+#        [Service]
+#        ExecStartPre=/bin/sh -c "wget https://www.dropbox.com/s/acnuezp9azbeli7/confd.zip  && unzip confd.zip && sudo mv confd /opt/etc/confd"
+#        ExecStart=/bin/sh -c "sudo /opt/bin/confd  -backend='etcd' -confdir='/opt/etc/confd/' -debug=true"
+  - name: mkswap.service
+    command: start
+    content: |
+       [Unit]
+       Description=Create Swap files
+
+       [Service]
+       Type=oneshot
+       ExecStart=/bin/sh -c "sudo fallocate -l 512 /2GiB.swap && sudo chmod 600 /2GiB.swap && sudo chattr +C /2GiB.swap && sudo mkswap /2GiB.swap"
+  - name: swap.service
+    command: start
+    content: |
+      [Unit]
+      Description=Turn on swap
+
+      [Service]
+      Type=oneshot
+      Environment="SWAPFILE=/2GiB.swap"
+      RemainAfterExit=true
+      ExecStartPre=/usr/sbin/losetup -f ${SWAPFILE}
+      ExecStart=/usr/bin/sh -c "/sbin/swapon $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
+      ExecStop=/usr/bin/sh -c "/sbin/swapoff $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
+      ExecStopPost=/usr/bin/sh -c "/usr/sbin/losetup -d $(/usr/sbin/losetup -j ${SWAPFILE} | /usr/bin/cut -d : -f 1)"
+
+      [Install]
+      WantedBy=local.target 
+users:
+  - name: oracle
+    passwd: $6MWxviugQys6
+    groups:
+      - sudo
+      - docker
